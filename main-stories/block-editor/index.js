@@ -1,9 +1,15 @@
 /**
+ * Import the customizations needed for the project
+ */
+import { categories, createCustomBlocks } from '../../config';
+import { uniq } from 'lodash';
+
+/**
  * WordPress dependencies
  */
 import '@wordpress/editor'; // This shouldn't be necessary
 
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import {
 	BlockEditorKeyboardShortcuts,
 	BlockEditorProvider,
@@ -20,6 +26,9 @@ import {
 import { registerCoreBlocks } from '@wordpress/block-library';
 import '@wordpress/format-library';
 
+// New Stuff.
+import { getCategories, setCategories } from '@wordpress/blocks';
+
 /**
  * Internal dependencies
  */
@@ -29,7 +38,17 @@ function App() {
 	const [ blocks, updateBlocks ] = useState( [] );
 
 	useEffect( () => {
+	
+		// Add any custom categories needed.
+		const cats = uniq( getCategories().concat( categories ), 'slug' );
+		setCategories( cats );
+
+		// Register the custom blocks.
 		registerCoreBlocks();
+
+		// Create custom blocks.
+		createCustomBlocks();
+
 	}, [] );
 
 	return (
@@ -61,7 +80,7 @@ function App() {
 }
 
 export default {
-	title: 'Block Editor',
+	title: 'Gutenberg | Block Editor',
 };
 
 export const _default = () => {
