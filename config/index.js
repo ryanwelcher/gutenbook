@@ -1,4 +1,11 @@
-import { registerBlockType } from '@wordpress/blocks';
+/**
+ * 
+ */
+import { registerTenupBlocks } from '../utils';
+import mainHeader from '../test/blocks/main-header'
+import panel from '../test/blocks/panel';
+//import signUpForm from '../test/blocks/signup-form';
+
 
 /**
  * Add any custom categories as needed.
@@ -6,13 +13,5 @@ import { registerBlockType } from '@wordpress/blocks';
 export const categories = [ { slug: 'tenup', title: 'Ten Up' } ];
 
 export function createCustomBlocks() {
-
-	registerBlockType( 'tenup/test', {
-		title   : 'Custom Block 2',
-		category: 'tenup',
-		icon    : 'controls-forward',
-		edit    : () => <div>EDIT</div>,
-		save    : () => <div>Save</div>,
-	} );
-	
+	registerTenupBlocks( [ mainHeader, panel ] );
 }

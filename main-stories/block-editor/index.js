@@ -86,3 +86,7 @@ export default {
 export const _default = () => {
 	return <App />;
 };
+
+export const _anotherOne = () => {
+	return <App />;
+};
